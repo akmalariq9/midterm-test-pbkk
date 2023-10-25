@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\MedicalRecordController
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,14 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('medical-records', [MedicalRecordController::class, 'getAll'])->name('medical-records.getAll');
+
+// Rute untuk menampilkan formulir rekam medis
+Route::get('medical-records/create', [MedicalRecordController::class, 'create'])->name('medical-records.create');
+
+// Rute untuk menyimpan rekam medis dari formulir
+Route::post('medical-records/create', [MedicalRecordController::class, 'store'])->name('medical-records.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
